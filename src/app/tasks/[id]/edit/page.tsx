@@ -5,7 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import EditTaskForm from "@/components/tasks/EditTaskForm";
 import { Task } from "@/lib/types";
 import { UpdateTaskInput } from "@/lib/validations";
-import { getTask, updateTask } from "@/app/api/tasks/route";
+import { getTask, updateTask } from "@/lib/api";
 import { toast } from "sonner";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
@@ -36,7 +36,7 @@ const EditTaskPage = () => {
 
   const handleUpdateTask = async (data: UpdateTaskInput) => {
     try {
-      await updateTask(taskId, data);
+      await updateTask(taskId, data as Task);
       toast.success("Task updated successfully!");
       router.push("/");
     } catch (error) {

@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useTransition } from "react";
-import {
-  getTasks,
-  toggleTask,
-  deleteTask,
-  createTask,
-} from "@/app/api/tasks/route";
+import { getTasks, toggleTask, deleteTask, createTask } from "@/lib/api";
 import TaskItem from "@/components/tasks/TaskItem";
 import TaskForm from "@/components/tasks/TaskForm";
 import ClipboardIcon from "@/components/ui/ClipboardIcon";
