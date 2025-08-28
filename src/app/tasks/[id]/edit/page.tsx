@@ -5,7 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import EditTaskForm from "@/components/tasks/EditTaskForm";
 import { Task } from "@/lib/types";
 import { UpdateTaskInput } from "@/lib/validations";
-import { getTask, updateTask } from "@/app/api/route";
+import { getTask, updateTask } from "@/app/api/tasks/route";
 import { toast } from "sonner";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
