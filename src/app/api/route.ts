@@ -2,7 +2,7 @@ import { UpdateTaskInput } from "@/lib/types";
 
 // Get tasks
 export const getTasks = async () => {
-  const response = await fetch("http://localhost:3001/tasks", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
     cache: "no-store",
   });
 
@@ -15,7 +15,7 @@ export const getTasks = async () => {
 
 // Create task
 export const createTask = async (title: string, color: string = "blue") => {
-  const response = await fetch("http://localhost:3001/tasks", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export const createTask = async (title: string, color: string = "blue") => {
 
 // Get single task
 export const getTask = async (id: number) => {
-  const response = await fetch(`http://localhost:3001/tasks/${id}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
     cache: "no-store",
   });
 
@@ -45,7 +45,7 @@ export const getTask = async (id: number) => {
 
 // Update task
 export const updateTask = async (id: number, data: UpdateTaskInput) => {
-  const response = await fetch(`http://localhost:3001/tasks/${id}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export const updateTask = async (id: number, data: UpdateTaskInput) => {
 
 // Toggle task
 export const toggleTask = async (id: number) => {
-  const response = await fetch(`http://localhost:3001/tasks/${id}/toggle`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}/toggle`, {
     method: "PATCH",
   });
 
@@ -75,7 +75,7 @@ export const toggleTask = async (id: number) => {
 
 // Delete task
 export const deleteTask = async (id: number) => {
-  const response = await fetch(`http://localhost:3001/tasks/${id}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
     method: "DELETE",
   });
 
