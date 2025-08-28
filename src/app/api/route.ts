@@ -1,85 +1,69 @@
-import { UpdateTaskInput } from "@/lib/types";
+import { NextRequest, NextResponse } from "next/server";
 
-// Get tasks
-export const getTasks = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
-    cache: "no-store",
-  });
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch tasks");
-  }
+export async function GET() {
+  const res = await fetch(`${API_URL}/tasks`);
+  const data = await res.json();
+  return NextResponse.json(data, { status: res.status });
+}
 
-  return response.json();
-};
-
-// Create task
-export const createTask = async (title: string, color: string = "blue") => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const res = await fetch(`${API_URL}/tasks`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ title, color }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
   });
+  const data = await res.json();
+  return NextResponse.json(data, { status: res.status });
+}
 
-  if (!response.ok) {
-    throw new Error("Failed to create task");
-  }
+import { NextRequest, NextResponse } from "next/server";
 
-  return response.json();
-};
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// Get single task
-export const getTask = async (id: number) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
-    cache: "no-store",
-  });
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const res = await fetch(`${API_URL}/tasks/${params.id}`);
+  const data = await res.json();
+  return NextResponse.json(data, { status: res.status });
+}
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch task");
-  }
-
-  return response.json();
-};
-
-// Update task
-export const updateTask = async (id: number, data: UpdateTaskInput) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const body = await req.json();
+  const res = await fetch(`${API_URL}/tasks/${params.id}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
   });
+  const data = await res.json();
+  return NextResponse.json(data, { status: res.status });
+}
 
-  if (!response.ok) {
-    throw new Error("Failed to update task");
-  }
-
-  return response.json();
-};
-
-// Toggle task
-export const toggleTask = async (id: number) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}/toggle`, {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const res = await fetch(`${API_URL}/tasks/${params.id}/toggle`, {
     method: "PATCH",
   });
+  const data = await res.json();
+  return NextResponse.json(data, { status: res.status });
+}
 
-  if (!response.ok) {
-    throw new Error("Failed to toggle task");
-  }
-
-  return response.json();
-};
-
-// Delete task
-export const deleteTask = async (id: number) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const res = await fetch(`${API_URL}/tasks/${params.id}`, {
     method: "DELETE",
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete task");
-  }
-};
+  const data = await res.json();
+  return NextResponse.json(data, { status: res.status });
+}
